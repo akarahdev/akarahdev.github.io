@@ -1,5 +1,56 @@
 function calculateStats() {
     let stats = new SkyBlockStats();
+    let armors = [
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots",
+        "necklace",
+        "cloak",
+        "belt",
+        "gloves"
+    ];
+    stats.health = 100;
+    stats.critChance = 30;
+    stats.critDamage = 50;
+    stats.healthRegen = 100;
+    stats.mending = 100;
+    stats.vitality = 100;
+    stats.swingRange = 3;
+
+
+    stats.riftTime = 480;
+    stats.riftDamage = 20;
+    stats.riftHealth = 10;
+
+    armors.forEach(armor => {
+        let element = document.getElementById(`${armor}-input`);
+        console.log(armor);
+        let value = element.value;
+        let item = items[value];
+        if (item != undefined && item != null) {
+            stats = SkyBlockStatsFunctions.add(stats, item.stats);
+        }
+    });
+    document.getElementById("stat-renderer").innerHTML = `
+    <span style="color:#ffffff">
+        <b>Combat Stats</b><br>
+        <span style="color:#FF5555;">❤ Health</span>: ${stats.health}<br>
+        <span style="color:#55FF55;">❈ Defense</span>: ${stats.defense}<br>
+
+        <span style="color:#FF5555;">❁ Damage</span>: ${stats.damage}<br>
+        <span style="color:#FF5555;">❁ Strength</span>: ${stats.strength}<br>
+        <span style="color:#55FFFF;">✎ Intelligence</span>: ${stats.intelligence}<br>
+        <br>
+        <b>Rift Stats</b><br>
+        <span style="color:#FF5555;">❤ Rift Hearts</span>: ${stats.riftHealth}<br>
+        <span style="color:#55FF55;">φ Rift Time</span>: ${stats.riftTime}<br>
+
+        <span style="color:#FF5555;">❁ Rift Damage</span>: ${stats.riftDamage}<br>
+        <span style="color:#55FFFF;">✎ Intelligence</span>: ${stats.riftIntelligence}<br>
+        <span style="color:#55FFFF;">⚡ Mana Regen</span>: ${stats.riftManaRegen}<br>
+    </span>
+    `;
 }
 /** Represents the category of a SkyBlock item. */
 var Category;
@@ -251,6 +302,11 @@ class SkyBlockStats {
         this.vitality = 0;
         this.mending = 0;
         this.swingRange = 0;
+        this.riftTime = 0;
+        this.riftDamage = 0;
+        this.riftIntelligence = 0;
+        this.riftManaRegen = 0;
+        this.riftHealth = 0;
     }
 }
 var SkyBlockStatsFunctions;
@@ -288,9 +344,14 @@ intelligence,health_regeneration,farming_wisdom dist.js:164:13
 Rift stats:
 rift_Time
 rift_health
-rift_time,
-RIFT_TIME,
+rift_time
+RIFT_TIME
 rift_damage
+rift_walk_speed
+rift_intelligence
+rift_mana_regen
+RIFT_INTELLIGENCE
+rift_health
 */
     SkyBlockStatsFunctions.mapping = {
         "damage": ["DAMAGE", "damage"],
@@ -307,6 +368,11 @@ rift_damage
         "vitality": ["VITALITY", "vitality"],
         "mending": ["MENDING", "mending"],
         "swingRange": ["SWING_RAMGE", "swing_range"],
+        "riftTime": ["RIFT_TIME", "rift_Time", "rift_time"],
+        "riftDamage": ["RIFT_DAMAGE", "rift_damage"],
+        "riftIntelligence": ["RIFT_INTELLIGENCE", "rift_intelligence"],
+        "riftManaRegen": ["RIFT_MANA_REGEN", "rift_mana_regen"],
+        "riftHealth": ["RIFT_HEALTH", "rift_health"],
     };
     function fromObject(object) {
         let statsObject = new SkyBlockStats();

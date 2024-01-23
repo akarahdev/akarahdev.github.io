@@ -40,7 +40,11 @@ class SkyBlockStats {
     mending = 0;
     swingRange = 0;
 
-    
+    riftTime = 0;
+    riftDamage = 0;
+    riftIntelligence = 0;
+    riftManaRegen = 0;
+    riftHealth = 0;
 }
 
 namespace SkyBlockStatsFunctions {
@@ -77,9 +81,14 @@ intelligence,health_regeneration,farming_wisdom dist.js:164:13
 Rift stats:
 rift_Time
 rift_health
-rift_time,
-RIFT_TIME,
+rift_time
+RIFT_TIME
 rift_damage
+rift_walk_speed
+rift_intelligence
+rift_mana_regen
+RIFT_INTELLIGENCE
+rift_health
 */
 
     export let mapping: {[k: string]: string[]} = {
@@ -97,6 +106,11 @@ rift_damage
         "vitality": ["VITALITY", "vitality"],
         "mending": ["MENDING", "mending"],
         "swingRange": ["SWING_RAMGE", "swing_range"],
+        "riftTime": ["RIFT_TIME", "rift_Time", "rift_time"],
+        "riftDamage": ["RIFT_DAMAGE", "rift_damage"],
+        "riftIntelligence": ["RIFT_INTELLIGENCE", "rift_intelligence"],
+        "riftManaRegen": ["RIFT_MANA_REGEN", "rift_mana_regen"],
+        "riftHealth": ["RIFT_HEALTH", "rift_health"],
     };
 
     export function fromObject(object: {[k: string]: number | null}): SkyBlockStats {
