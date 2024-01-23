@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SkyBuilder</title>
     <link href="./index.css" rel="stylesheet">
 </head>
 <body>
@@ -20,7 +20,8 @@
     <datalist id="gloves-list"></datalist>
 
     <br>
-    <!-- <img src="../img/skybuilder.png" style="display: block; margin-left: auto; margin-right: auto; width: 25%;"> -->
+    <marquee stlye="color:#ffffff;">Hello world!</marquee>
+    <img src="../img/skybuilder.png" style="display: block; margin-left: auto; margin-right: auto; width: 25%;">
     <br>
     <div id="site-container">
         <div id="inputs-container">
@@ -32,12 +33,20 @@
                     <input id="helmet-enchants" class="small-input" type="text" placeholder="Helmet Enchants">
                 </div>
                 <div class="sub-inputs">
-                    <input id="helmet-stars" class="small-input" type="checkbox" name="HPBs">
-                    <label for="HPBs">HPBs</label>
-                    <input id="helmet-stars" class="small-input" type="checkbox" name="FPBs">
-                    <label for="FPBs">FPBs</label>
-                    <input id="helmet-stars" class="small-input" type="checkbox" name="Recombed">
-                    <label for="Recombed">Recombed</label>
+                    <label for="HPBs" class="sub-input">
+                        <input id="helmet-hpbs" class="small-input" type="checkbox" name="Hot Potato Books">
+                        Hot Potato Books
+                    </label>
+                    
+                    <label for="FPBs" class="sub-input">
+                        <input id="helmet-fpbs" class="small-input" type="checkbox" name="Fuming Potato Books">
+                        Fuming Potato Books
+                    </label>
+                    
+                    <label for="Recombobulated" class="sub-input">
+                        <input id="helmet-recomb" class="small-input" type="checkbox" name="Recombobulated">
+                        Recombobulated
+                    </label>
                 </div>
                 <input id="chestplate-input" list="chestplate-list" type="text" placeholder="Chestplate">
                 <div class="sub-inputs">
@@ -45,11 +54,43 @@
                     <input id="chestplate-reforge" class="small-input" type="text" placeholder="Chestplate Reforge">
                     <input id="chestplate-enchants" class="small-input" type="text" placeholder="Chestplate Enchants">
                 </div>
+                <div class="sub-inputs">
+                    <label for="HPBs" class="sub-input">
+                        <input id="chestplate-hpbs" class="small-input" type="checkbox" name="Hot Potato Books">
+                        Hot Potato Books
+                    </label>
+                    
+                    <label for="FPBs" class="sub-input">
+                        <input id="chestplate-fpbs" class="small-input" type="checkbox" name="Fuming Potato Books">
+                        Fuming Potato Books
+                    </label>
+                    
+                    <label for="Recombobulated" class="sub-input">
+                        <input id="chestplate-recomb" class="small-input" type="checkbox" name="Recombobulated">
+                        Recombobulated
+                    </label>
+                </div>
                 <input id="leggings-input" list="leggings-list" type="text" placeholder="Leggings">
                 <div class="sub-inputs">
                     <input id="leggings-stars" class="small-input" type="number" placeholder="Leggings Stars">
                     <input id="leggings-reforge" class="small-input" type="text" placeholder="Leggings Reforge">
                     <input id="leggings-enchants" class="small-input" type="text" placeholder="Leggings Enchants">
+                </div>
+                <div class="sub-inputs">
+                    <label for="HPBs" class="sub-input">
+                        <input id="leggings-hpbs" class="small-input" type="checkbox" name="Hot Potato Books">
+                        Hot Potato Books
+                    </label>
+                    
+                    <label for="FPBs" class="sub-input">
+                        <input id="leggings-fpbs" class="small-input" type="checkbox" name="Fuming Potato Books">
+                        Fuming Potato Books
+                    </label>
+                    
+                    <label for="Recombobulated" class="sub-input">
+                        <input id="leggings-recomb" class="small-input" type="checkbox" name="Recombobulated">
+                        Recombobulated
+                    </label>
                 </div>
                 <input id="boots-input" list="boots-list" type="text" placeholder="Boots">
                 <div class="sub-inputs">
@@ -57,11 +98,43 @@
                     <input id="boots-reforge" class="small-input" type="text" placeholder="Boots Reforge">
                     <input id="boots-enchants" class="small-input" type="text" placeholder="Boots Enchants">
                 </div>
+                <div class="sub-inputs">
+                    <label for="HPBs" class="sub-input">
+                        <input id="boots-hpbs" class="small-input" type="checkbox" name="Hot Potato Books">
+                        Hot Potato Books
+                    </label>
+                    
+                    <label for="FPBs" class="sub-input">
+                        <input id="boots-fpbs" class="small-input" type="checkbox" name="Fuming Potato Books">
+                        Fuming Potato Books
+                    </label>
+                    
+                    <label for="Recombobulated" class="sub-input">
+                        <input id="boots-recomb" class="small-input" type="checkbox" name="Recombobulated">
+                        Recombobulated
+                    </label>
+                </div>
                 <input id="mainhand-input" list="mainhand-list" type="text" placeholder="Mainhand">
                 <div class="sub-inputs">
                     <input id="mainhand-stars" class="small-input" type="number" placeholder="Mainhand Stars">
                     <input id="mainhand-reforge" class="small-input" type="text" placeholder="Mainhand Reforge">
                     <input id="mainhand-enchants" class="small-input" type="text" placeholder="Mainhand Enchants">
+                </div>
+                <div class="sub-inputs">
+                    <label for="HPBs" class="sub-input">
+                        <input id="mainhand-hpbs" class="small-input" type="checkbox" name="Hot Potato Books">
+                        Hot Potato Books
+                    </label>
+                    
+                    <label for="FPBs" class="sub-input">
+                        <input id="mainhand-fpbs" class="small-input" type="checkbox" name="Fuming Potato Books">
+                        Fuming Potato Books
+                    </label>
+                    
+                    <label for="Recombobulated" class="sub-input">
+                        <input id="mainhand-recomb" class="small-input" type="checkbox" name="Recombobulated">
+                        Recombobulated
+                    </label>
                 </div>
             </div>
             <div id="equipment-inputs">

@@ -1,11 +1,5 @@
-@font-face {
-    font-family: c-font-basic;
-    src: url(font/SalmaproMedium.otf);
-}
-
 body {
-    font-family: c-font-basic;
-    /* background-image: url('../../img/new-background.png');
+    /* background-image: url('./img/new-background.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%; */
@@ -26,7 +20,7 @@ input {
     border-bottom: 1px solid white;
     color: white;
     margin: 10px;
-    width: 30%
+    width: 30%;
 }
 
 #site-container {
@@ -55,11 +49,26 @@ input {
 #armor-inputs, #equipment-inputs {
     display: flex;
     padding: 20px;
-    width: 40%;
+    width: 70%;
     flex-direction: column;
 }
 
 .sub-inputs {
     display: flex;
     flex-direction: row;
+}
+
+.sub-input {
+    display: flex;
+    flex-direction: row;
+    scale: 75%;
+}
+
+.single-item {
+    display: flex;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    flex-direction: row;
+    width: 100%;
 }

@@ -1,4 +1,5 @@
 function calculateStats() {
+    console.log("Recalculating stats...");
     let stats = new SkyBlockStats();
     let armors = [
         "helmet",
@@ -8,21 +9,16 @@ function calculateStats() {
         "necklace",
         "cloak",
         "belt",
-        "gloves"
+        "gloves",
+        "mainhand"
     ];
     stats.health = 100;
     stats.critChance = 30;
     stats.critDamage = 50;
-    stats.healthRegen = 100;
-    stats.mending = 100;
-    stats.vitality = 100;
-    stats.swingRange = 3;
-
-
+    stats.intelligence = 100;
     stats.riftTime = 480;
-    stats.riftDamage = 20;
     stats.riftHealth = 10;
-
+    stats.riftDamage = 20;
     armors.forEach(armor => {
         let element = document.getElementById(`${armor}-input`);
         console.log(armor);
@@ -34,21 +30,58 @@ function calculateStats() {
     });
     document.getElementById("stat-renderer").innerHTML = `
     <span style="color:#ffffff">
-        <b>Combat Stats</b><br>
+        <b>Defensive Stats</b><br>
         <span style="color:#FF5555;">❤ Health</span>: ${stats.health}<br>
         <span style="color:#55FF55;">❈ Defense</span>: ${stats.defense}<br>
-
+        <br>
+        <b>Combat Stats</b><br>
         <span style="color:#FF5555;">❁ Damage</span>: ${stats.damage}<br>
         <span style="color:#FF5555;">❁ Strength</span>: ${stats.strength}<br>
+        <span style="color:#5555FF;">☣ Critical Chance</span>: ${stats.critChance}%<br>
+        <span style="color:#5555FF;">☠ Critical Damage</span>: ${stats.critDamage}%<br>
+        <span style="color:#FF5555;">⫽ Ferocity</span>: ${stats.ferocity}<br>
+        <span style="color:#FFFF55;">⚔ Bonus Attack Speed</span>: ${stats.bonusAttackSpeed}%<br>
+        <span style="color:#FF5555;">❣ Health Regeneration</span>: ${stats.healthRegen}<br>
+        <span style="color:#55FF55;">☄ Mending</span>: ${stats.mending}<br>
+        <span style="color:#AA0000;">♨ Vitality</span>: ${stats.vitality}<br>
+        <span style="color:#FFFF55;">Ⓢ Swing Range</span>: ${stats.swingRange}<br>
+        <span style="color:#FFFFFF;">❂ True Defense</span>: ${stats.trueDefense}<br>
+        <span style="color:#00AAAA;">☯ Combat Wisdom</span>: ${stats.combatWisdom}<br>       
+        <br>
+        <b>Magic Stats</b><br>
         <span style="color:#55FFFF;">✎ Intelligence</span>: ${stats.intelligence}<br>
+        <span style="color:#FF5555;">๑ Ability Damage</span>: ${stats.abilityDamage}%<br>
         <br>
         <b>Rift Stats</b><br>
         <span style="color:#FF5555;">❤ Rift Hearts</span>: ${stats.riftHealth}<br>
         <span style="color:#55FF55;">φ Rift Time</span>: ${stats.riftTime}<br>
-
         <span style="color:#FF5555;">❁ Rift Damage</span>: ${stats.riftDamage}<br>
         <span style="color:#55FFFF;">✎ Intelligence</span>: ${stats.riftIntelligence}<br>
-        <span style="color:#55FFFF;">⚡ Mana Regen</span>: ${stats.riftManaRegen}<br>
+        <span style="color:#55FFFF;">⚡ Mana Regen</span>: ${stats.riftManaRegen}%<br>
+        <br>
+        <b>Misc. Stats</b><br>
+        ✦ Walk Speed: ${stats.walkSpeed}<br>
+        <span style="color:#55FFFF;">✯ Magic Find</span>: ${stats.magicFind}<br>
+        <span style="color:#FF55FF;">♣ Pet Luck</span>: ${stats.petLuck}<br>
+        <br>
+        <b>Skill Stats</b><br>
+        <span style="color:#FFAA00;">⸕ Mining Speed</span>: ${stats.miningSpeed}<br>
+        <span style="color:#FFAA00;">☘ Mining Fortune</span>: ${stats.miningFortune}<br>
+        <br>
+        <span style="color:#00AAAA;">☯ Fishing Wisdom</span>: ${stats.fishingWisdom}<br>
+        <span style="color:#55FFFF;">☂ Fishing Speed</span>: ${stats.fishingSpeed}<br>
+        <span style="color:#00AAAA;">α Sea Creature Chance</span>: ${stats.seaCreatureChance}%<br>
+        <br>
+        <span style="color:#00AAAA;">☯ Farming Wisdom</span>: ${stats.farmingWisdom}<br>
+        <span style="color:#FFAA00;">☘ Farming Fortune</span>: ${stats.farmingFortune}<br>
+        <br>
+        <span style="color:#00AAAA;">☯ Foraging Wisdom</span>: ${stats.foragingWisdom}<br> 
+        <br>
+        
+        
+        
+        
+        
     </span>
     `;
 }
@@ -156,60 +189,35 @@ function setupPage() {
         let category = it["category"];
         let option = document.createElement("option");
         option.value = it["name"];
-        if (!categories.includes(it["category"])) {
-            categories.push(it["category"]);
-        }
-        if (it["stats"] != null && it["stats"] != undefined) {
-            Object.keys(it["stats"]).forEach((it) => {
-                if (!stats.includes(it)) {
-                    stats.push(it);
-                }
-            });
-        }
         switch (category) {
-            case "HELMET":
+            case Category.HELMET:
                 document.getElementById("helmet-list").appendChild(option);
                 break;
-            case "CHESTPLATE":
+            case Category.CHESTPLATE:
                 document.getElementById("chestplate-list").appendChild(option);
                 break;
-            case "LEGGINGS":
+            case Category.LEGGINGS:
                 document.getElementById("leggings-list").appendChild(option);
                 break;
-            case "BOOTS":
+            case Category.BOOTS:
                 document.getElementById("boots-list").appendChild(option);
                 break;
-            case "NECKLACE":
+            case Category.NECKLACE:
                 document.getElementById("necklace-list").appendChild(option);
                 break;
-            case "CLOAK":
+            case Category.CLOAK:
                 document.getElementById("cloak-list").appendChild(option);
                 break;
-            case "BELT":
+            case Category.BELT:
                 document.getElementById("belt-list").appendChild(option);
                 break;
-            case "GLOVES":
+            case Category.GLOVES:
                 document.getElementById("gloves-list").appendChild(option);
                 break;
-            case "BRACELET":
+            case Category.BRACELET:
                 document.getElementById("gloves-list").appendChild(option);
                 break;
-            case "SWORD":
-                document.getElementById("mainhand-list").appendChild(option);
-                break;
-            case "BOW":
-                document.getElementById("mainhand-list").appendChild(option);
-                break;
-            case "LONGSWORD":
-                document.getElementById("mainhand-list").appendChild(option);
-                break;
-            case "AXE":
-                document.getElementById("mainhand-list").appendChild(option);
-                break;
-            case "PICKAXE":
-                document.getElementById("mainhand-list").appendChild(option);
-                break;
-            case "HOE":
+            case Category.SWORD || Category.BOW || Category.LONGSWORD || Category.AXE || Category.PICKAXE || Category.HOE:
                 document.getElementById("mainhand-list").appendChild(option);
                 break;
         }
@@ -230,6 +238,32 @@ function setupPage() {
         document.getElementById(slot).addEventListener("change", calculateStats);
     });
     calculateStats();
+}
+class Stars {
+    constructor(stars) {
+        this.stars = 0;
+        this.stars = stars;
+    }
+    modify(item) {
+    }
+}
+class HotPotatoBooks {
+    constructor(amount) {
+        this.amount = 0;
+        this.amount = amount;
+    }
+    modify(item) {
+        switch (item.category) {
+            case Category.HELMET, Category.CHESTPLATE, Category.LEGGINGS, Category.BOOTS:
+                item.stats.health += 4 * this.amount;
+                item.stats.defense += 2 * this.amount;
+                break;
+            case Category.SWORD, Category.BOW, Category.LONGSWORD:
+                item.stats.damage += 2 * this.amount;
+                item.stats.strength += 2 * this.amount;
+                break;
+        }
+    }
 }
 /** Represents the rarity of a SkyBlock item. */
 var Rarity;
@@ -268,18 +302,32 @@ class SkyBlockItem {
         /** Rarity of the item (e.g COMMON, RARE, etc.) */
         this.rarity = Rarity.COMMON;
         /** Category of this item (e.g SWORD, BOW) */
-        this.category = "";
+        this.category = Category.NONE;
+        this.dungeonItem = false;
         /** Stats of this item */
         this.stats = new SkyBlockStats();
     }
     static fromObject(object) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         let item = new SkyBlockItem();
         item.name = (_a = object["name"]) !== null && _a !== void 0 ? _a : "";
         item.rarity = Rarity.parseRarity((_b = object["rarity"]) !== null && _b !== void 0 ? _b : "COMMON");
-        item.category = (_c = object["category"]) !== null && _c !== void 0 ? _c : "NONE";
-        item.stats = SkyBlockStatsFunctions.fromObject((_d = object["stats"]) !== null && _d !== void 0 ? _d : {});
+        item.category = Category.parseCategory((_c = object["category"]) !== null && _c !== void 0 ? _c : "NONE");
+        item.dungeonItem = (_d = object["dungeon_item"]) !== null && _d !== void 0 ? _d : false;
+        item.stats = SkyBlockStatsFunctions.fromObject((_e = object["stats"]) !== null && _e !== void 0 ? _e : new SkyBlockStats());
         return item;
+    }
+    modify(modifier) {
+        modifier.modify(this);
+    }
+    copy() {
+        let s = new SkyBlockItem();
+        s.name = this.name;
+        s.rarity = this.rarity;
+        s.category = this.category;
+        s.dungeonItem = this.dungeonItem;
+        s.stats = this.stats;
+        return s;
     }
 }
 class SkyBlockStats {
@@ -302,11 +350,23 @@ class SkyBlockStats {
         this.vitality = 0;
         this.mending = 0;
         this.swingRange = 0;
+        this.combatWisdom = 0;
+        this.walkSpeed = 0;
+        this.magicFind = 0;
+        this.petLuck = 0;
         this.riftTime = 0;
         this.riftDamage = 0;
         this.riftIntelligence = 0;
         this.riftManaRegen = 0;
         this.riftHealth = 0;
+        this.foragingWisdom = 0;
+        this.farmingWisdom = 0;
+        this.farmingFortune = 0;
+        this.fishingWisdom = 0;
+        this.fishingSpeed = 0;
+        this.seaCreatureChance = 20;
+        this.miningSpeed = 0;
+        this.miningFortune = 0;
     }
 }
 var SkyBlockStatsFunctions;
@@ -339,7 +399,7 @@ RIFT_TIME,
 damage,defense,health,bonus_pest_chance,cocoa_beans_fortune,magic_find,strength,sea_creature_chance,fishing_speed,rift_Time,vitality,mending,
 critical_damage,foraging_wisdom,combat_wisdom,walk_speed,wheat_fortune,carrot_fortune,potato_fortune,melon_fortune,
 pumpkin_fortune,farming_fortune,rift_walk_speed,rift_intelligence,rift_mana_regen,RIFT_INTELLIGENCE,rift_health,rift_time,fishing_wisdom,rift_damage,
-intelligence,health_regeneration,farming_wisdom dist.js:164:13
+intelligence,health_regeneration,farming_wisdom
 
 Rift stats:
 rift_Time
@@ -361,18 +421,31 @@ rift_health
         "intelligence": ["INTELLIGENCE", "intelligence"],
         "critChance": ["CRIT_CHANCE", "crit_chance"],
         "bonusAttackSpeed": ["ATTACK_SPEED", "attack_speed"],
-        "abilityDamage": ["ABILITY_DAMAGE", "ability_damage"],
+        "abilityDamage": ["ABILITY_DAMAGE_PERCENT", "ability_damage_percent"],
+        "baseAbilityDamage": ["WEAPON_ABILITY_DAMAGE"],
         "trueDefense": ["TRUE_DEFENSE", "true_defense"],
         "ferocity": ["FEROCITY", "ferocity"],
         "healthRegem": ["HEALTH_REGENERATION", "health_regeneration"],
         "vitality": ["VITALITY", "vitality"],
         "mending": ["MENDING", "mending"],
         "swingRange": ["SWING_RAMGE", "swing_range"],
+        "combatWisdom": ["COMBAT_WISDOM", "combat_wisdom"],
         "riftTime": ["RIFT_TIME", "rift_Time", "rift_time"],
         "riftDamage": ["RIFT_DAMAGE", "rift_damage"],
         "riftIntelligence": ["RIFT_INTELLIGENCE", "rift_intelligence"],
         "riftManaRegen": ["RIFT_MANA_REGEN", "rift_mana_regen"],
         "riftHealth": ["RIFT_HEALTH", "rift_health"],
+        "walkSpeed": ["WALK_SPEED", "walk_speed"],
+        "magicFind": ["MAGIC_FIND", "magic_find"],
+        "petLuck": ["PET_LUCK", "pet_luck"],
+        "foragingWisdom": ["FORAGING_WISDOM", "foraging_wisdom"],
+        "fishingWisdom": ["FISHING_WISDOM", "fishing_wisdom"],
+        "fishingSpeed": ["FISHING_SPEED", "fishing_speed"],
+        "seaCreatureChance": ["SEA_CREATURE_CHANCE", "sea_creature_chance"],
+        "farmingWisdom": ["FARMING_WISDOM", "farming_wisdom"],
+        "farmingFortune": ["FARMING_FORTUNE", "farming_fortune"],
+        "miningSpeed": ["MINING_SPEED", "mining_speed"],
+        "miningFortune": ["MINING_FORTUNE", "mining_fortune"],
     };
     function fromObject(object) {
         let statsObject = new SkyBlockStats();

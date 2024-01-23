@@ -24,62 +24,37 @@ function setupPage() {
         let option = document.createElement("option");
         option.value = it["name"];
 
-        if(!categories.includes(it["category"])) {
-            categories.push(it["category"]);
-        }
-
-        if(it["stats"] != null && it["stats"] != undefined) {
-            Object.keys(it["stats"] as {[s: string]: any}).forEach((it) => {
-                if(!stats.includes(it)) {
-                    stats.push(it);
-                }
-            });
-        }
+        
 
         switch(category) {
-            case "HELMET":
+            case Category.HELMET:
                 document.getElementById("helmet-list")!!.appendChild(option);
                 break;
-            case "CHESTPLATE":
+            case Category.CHESTPLATE:
                 document.getElementById("chestplate-list")!!.appendChild(option);
                 break;
-            case "LEGGINGS":
+            case Category.LEGGINGS:
                 document.getElementById("leggings-list")!!.appendChild(option);
                 break;
-            case "BOOTS":
+            case Category.BOOTS:
                 document.getElementById("boots-list")!!.appendChild(option);
                 break;
-            case "NECKLACE":
+            case Category.NECKLACE:
                 document.getElementById("necklace-list")!!.appendChild(option);
                 break;
-            case "CLOAK":
+            case Category.CLOAK:
                 document.getElementById("cloak-list")!!.appendChild(option);
                 break;
-            case "BELT":
+            case Category.BELT:
                 document.getElementById("belt-list")!!.appendChild(option);
                 break;
-            case "GLOVES":
+            case Category.GLOVES:
                 document.getElementById("gloves-list")!!.appendChild(option);
                 break;
-            case "BRACELET":
+            case Category.BRACELET:
                 document.getElementById("gloves-list")!!.appendChild(option);
                 break;
-            case "SWORD":
-                document.getElementById("mainhand-list")!!.appendChild(option);
-                break;
-            case "BOW":
-                document.getElementById("mainhand-list")!!.appendChild(option);
-                break;
-            case "LONGSWORD":
-                document.getElementById("mainhand-list")!!.appendChild(option);
-                break;
-            case "AXE":
-                document.getElementById("mainhand-list")!!.appendChild(option);
-                break;
-            case "PICKAXE":
-                document.getElementById("mainhand-list")!!.appendChild(option);
-                break;
-            case "HOE":
+            case Category.SWORD || Category.BOW || Category.LONGSWORD || Category.AXE || Category.PICKAXE || Category.HOE:
                 document.getElementById("mainhand-list")!!.appendChild(option);
                 break;
         }
