@@ -5,10 +5,11 @@
 
 body {
     font-family: c-font-basic;
-    background-image: url('../../img/new-background.png');
+    /* background-image: url('../../img/new-background.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 100% 100%;
+    background-size: 100% 100%; */
+    background-color: #222222;
 }
 
 input {
