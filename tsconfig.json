@@ -1,0 +1,8 @@
+{
+    "include": ["src/**/**.ts"],
+    "compilerOptions": {
+        "outFile": "./dist/dist.js",
+        "target": "es6",
+        "lib": ["es6", "dom", "es2022"],
+    }
+}

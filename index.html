@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./index.css" rel="stylesheet">
+</head>
+<body>
+    <script src="./dist/dist.js"></script>
+
+    <datalist id="helmet-list"></datalist>
+    <datalist id="chestplate-list"></datalist>
+    <datalist id="leggings-list"></datalist>
+    <datalist id="boots-list"></datalist>
+    <datalist id="mainhand-list"></datalist>
+    <datalist id="necklace-list"></datalist>
+    <datalist id="cloak-list"></datalist>
+    <datalist id="belt-list"></datalist>
+    <datalist id="gloves-list"></datalist>
+
+    <br>
+    <img src="../img/skybuilder.png" style="display: block; margin-left: auto; margin-right: auto; width: 25%;">
+    <br>
+    <div id="site-container">
+        <div id="inputs-container">
+            <div id="armor-inputs" style="color:white;">
+                <input id="helmet-input" list="helmet-list" type="text" placeholder="Helmet">
+                <div class="sub-inputs">
+                    <input id="helmet-stars" class="small-input" type="number" placeholder="Helmet Stars">
+                    <input id="helmet-reforge" class="small-input" type="text" placeholder="Helmet Reforge">
+                    <input id="helmet-enchants" class="small-input" type="text" placeholder="Helmet Enchants">
+                </div>
+                <div class="sub-inputs">
+                    <input id="helmet-stars" class="small-input" type="checkbox" name="HPBs">
+                    <label for="HPBs">HPBs</label>
+                    <input id="helmet-stars" class="small-input" type="checkbox" name="FPBs">
+                    <label for="FPBs">FPBs</label>
+                    <input id="helmet-stars" class="small-input" type="checkbox" name="Recombed">
+                    <label for="Recombed">Recombed</label>
+                </div>
+                <input id="chestplate-input" list="chestplate-list" type="text" placeholder="Chestplate">
+                <div class="sub-inputs">
+                    <input id="chestplate-stars" class="small-input" type="number" placeholder="Chestplate Stars">
+                    <input id="chestplate-reforge" class="small-input" type="text" placeholder="Chestplate Reforge">
+                    <input id="chestplate-enchants" class="small-input" type="text" placeholder="Chestplate Enchants">
+                </div>
+                <input id="leggings-input" list="leggings-list" type="text" placeholder="Leggings">
+                <div class="sub-inputs">
+                    <input id="leggings-stars" class="small-input" type="number" placeholder="Leggings Stars">
+                    <input id="leggings-reforge" class="small-input" type="text" placeholder="Leggings Reforge">
+                    <input id="leggings-enchants" class="small-input" type="text" placeholder="Leggings Enchants">
+                </div>
+                <input id="boots-input" list="boots-list" type="text" placeholder="Boots">
+                <div class="sub-inputs">
+                    <input id="boots-stars" class="small-input" type="number" placeholder="Boots Stars">
+                    <input id="boots-reforge" class="small-input" type="text" placeholder="Boots Reforge">
+                    <input id="boots-enchants" class="small-input" type="text" placeholder="Boots Enchants">
+                </div>
+                <input id="mainhand-input" list="mainhand-list" type="text" placeholder="Mainhand">
+                <div class="sub-inputs">
+                    <input id="mainhand-stars" class="small-input" type="number" placeholder="Mainhand Stars">
+                    <input id="mainhand-reforge" class="small-input" type="text" placeholder="Mainhand Reforge">
+                    <input id="mainhand-enchants" class="small-input" type="text" placeholder="Mainhand Enchants">
+                </div>
+            </div>
+            <div id="equipment-inputs">
+                <input id="necklace-input" list="necklace-list" type="text" placeholder="Necklace">
+                <div class="sub-inputs">
+                    <input id="necklace-stars" class="small-input" type="number" placeholder="Necklace Stars">
+                    <input id="necklace-reforge" class="small-input" type="text" placeholder="Necklace Reforge">
+                    <input id="necklace-enchants" class="small-input" type="text" placeholder="Necklace Enchants">
+                </div>
+                <input id="cloak-input" list="cloak-list" type="text" placeholder="Cloak">
+                <div class="sub-inputs">
+                    <input id="cloak-stars" class="small-input" type="number" placeholder="Cloak Stars">
+                    <input id="cloak-reforge" class="small-input" type="text" placeholder="Cloak Reforge">
+                    <input id="cloak-enchants" class="small-input" type="text" placeholder="Cloak Enchants">
+                </div>
+                <input id="belt-input" list="belt-list" type="text" placeholder="Belt">
+                <div class="sub-inputs">
+                    <input id="belt-stars" class="small-input" type="number" placeholder="Belt Stars">
+                    <input id="belt-reforge" class="small-input" type="text" placeholder="Belt Reforge">
+                    <input id="belt-enchants" class="small-input" type="text" placeholder="Belt Enchants">
+                </div>
+                <input id="gloves-input" list="gloves-list" type="text" placeholder="Gloves">
+                <div class="sub-inputs">
+                    <input id="gloves-stars" class="small-input" type="number" placeholder="Gloves Stars">
+                    <input id="gloves-reforge" class="small-input" type="text" placeholder="Gloves Reforge">
+                    <input id="gloves-enchants" class="small-input" type="text" placeholder="Gloves Enchants">
+                </div>
+            </div>   
+        </div>
+
+        <div id="stat-renderer">
+
+        </div>
+    </div>
+    
+    
+    
+
+    
+
+    
+</body>
+</html>
