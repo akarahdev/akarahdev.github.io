@@ -15,17 +15,43 @@ function calculateStats() {
     stats.health = 100;
     stats.critChance = 30;
     stats.critDamage = 50;
-    stats.intelligence = 100;
     stats.riftTime = 480;
     stats.riftHealth = 10;
     stats.riftDamage = 20;
+    stats.seaCreatureChance = 20;
     armors.forEach(armor => {
         let element = document.getElementById(`${armor}-input`);
         console.log(armor);
         let value = element.value;
         let item = items[value];
         if (item != undefined && item != null) {
-            stats = SkyBlockStatsFunctions.add(stats, item.stats);
+            console.log(item);
+            let addItem = item.copy();
+            let hpbs = document.getElementById(`${armor}-hpbs`);
+            if (hpbs != null) {
+                if (hpbs.checked)
+                    addItem.modify(new HotPotatoBooks(10));
+            }
+            let fpbs = document.getElementById(`${armor}-fpbs`);
+            if (fpbs != null) {
+                if (fpbs.checked)
+                    addItem.modify(new HotPotatoBooks(5));
+            }
+            let stars = document.getElementById(`${armor}-stars`);
+            if (stars != null) {
+                if (Number.isNaN(parseInt(stars.value))) {
+                    addItem.modify(new Stars(0));
+                }
+                else {
+                    addItem.modify(new Stars(parseInt(stars.value)));
+                }
+            }
+            let reforge = document.getElementById(`${armor}-reforge`);
+            if (reforge != null) {
+                item.modify(new ReforgeModifier(Reforge.fromString(reforge.value)));
+            }
+            console.log(addItem);
+            stats = SkyBlockStatsFunctions.add(stats, addItem.stats);
         }
     });
     document.getElementById("stat-renderer").innerHTML = `
@@ -225,17 +251,39 @@ function setupPage() {
     console.log(`categories: ${categories}`);
     console.log(`stats: ${stats}`);
     let slots = [
-        "helmet-input",
-        "chestplate-input",
-        "leggings-input",
-        "boots-input",
-        "necklace-input",
-        "cloak-input",
-        "belt-input",
-        "gloves-input"
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots",
+        "necklace",
+        "cloak",
+        "belt",
+        "gloves"
     ];
     slots.forEach((slot) => {
-        document.getElementById(slot).addEventListener("change", calculateStats);
+        var _a, _b, _c, _d, _e, _f, _g;
+        (_a = document.getElementById(`${slot}-input`)) === null || _a === void 0 ? void 0 : _a.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        (_b = document.getElementById(`${slot}-stars`)) === null || _b === void 0 ? void 0 : _b.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        (_c = document.getElementById(`${slot}-reforge`)) === null || _c === void 0 ? void 0 : _c.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        (_d = document.getElementById(`${slot}-enchants`)) === null || _d === void 0 ? void 0 : _d.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        (_e = document.getElementById(`${slot}-hpbs`)) === null || _e === void 0 ? void 0 : _e.addEventListener("click", () => {
+            console.log(document.getElementById(`${slot}-hpbs`).checked);
+            setTimeout(calculateStats, 50);
+        });
+        (_f = document.getElementById(`${slot}-fpbs`)) === null || _f === void 0 ? void 0 : _f.addEventListener("click", () => {
+            setTimeout(calculateStats, 50);
+        });
+        (_g = document.getElementById(`${slot}-recombed`)) === null || _g === void 0 ? void 0 : _g.addEventListener("click", () => {
+            setTimeout(calculateStats, 50);
+        });
     });
     calculateStats();
 }
@@ -245,6 +293,7 @@ class Stars {
         this.stars = stars;
     }
     modify(item) {
+        item.stats = SkyBlockStatsFunctions.multiply(item.stats, (this.stars * 0.02) + 1);
     }
 }
 class HotPotatoBooks {
@@ -253,18 +302,75 @@ class HotPotatoBooks {
         this.amount = amount;
     }
     modify(item) {
+        console.log(this.amount);
+        console.log(item.category);
         switch (item.category) {
-            case Category.HELMET, Category.CHESTPLATE, Category.LEGGINGS, Category.BOOTS:
+            case Category.HELMET || Category.CHESTPLATE || Category.LEGGINGS || Category.BOOTS:
+                console.log("armor");
                 item.stats.health += 4 * this.amount;
                 item.stats.defense += 2 * this.amount;
                 break;
-            case Category.SWORD, Category.BOW, Category.LONGSWORD:
+            case Category.SWORD || Category.BOW || Category.LONGSWORD:
+                console.log("weapon fr");
                 item.stats.damage += 2 * this.amount;
                 item.stats.strength += 2 * this.amount;
                 break;
         }
+        console.log(item);
     }
 }
+class ReforgeModifier {
+    constructor(reforge) {
+        this.reforge = Reforge.NONE;
+        this.reforge = reforge;
+    }
+    modify(item) {
+        item.stats = SkyBlockStatsFunctions.add(item.stats, Reforge.getStats(this.reforge, item.category, item.rarity));
+    }
+}
+var Reforge;
+(function (Reforge) {
+    Reforge[Reforge["NONE"] = 0] = "NONE";
+    Reforge[Reforge["ANCIENT"] = 1] = "ANCIENT";
+    Reforge[Reforge["NECROTIC"] = 2] = "NECROTIC";
+    Reforge[Reforge["REINFORCED"] = 3] = "REINFORCED";
+    Reforge[Reforge["PERFECT"] = 4] = "PERFECT";
+})(Reforge || (Reforge = {}));
+(function (Reforge) {
+    function getStats(reforge, category, rarity) {
+        let rt = new SkyBlockStats();
+        let n = Rarity.toNumber(rarity);
+        switch (reforge) {
+            case Reforge.NONE:
+                return new SkyBlockStats();
+            case Reforge.ANCIENT:
+                rt.strength += [4, 8, 12, 18, 25, 35, 35][n];
+                rt.critChance += [3, 5, 7, 9, 12, 15, 15][n];
+                rt.health += 7;
+                rt.defense += 7;
+                rt.intelligence += [6, 9, 12, 16, 20, 25, 25][n];
+                break;
+            case Reforge.NECROTIC:
+                rt.intelligence += [30, 60, 90, 120, 150, 200][n];
+                break;
+            case Reforge.REINFORCED || Reforge.PERFECT:
+                rt.defense += [25, 35, 50, 65, 80, 110, 110][n];
+                break;
+        }
+        return rt;
+    }
+    Reforge.getStats = getStats;
+    function fromString(string) {
+        switch (string) {
+            case "Ancient": return Reforge.ANCIENT;
+            case "Necrotic": return Reforge.NECROTIC;
+            case "Reinforced": return Reforge.REINFORCED;
+            case "Perfect": return Reforge.PERFECT;
+        }
+        return Reforge.NONE;
+    }
+    Reforge.fromString = fromString;
+})(Reforge || (Reforge = {}));
 /** Represents the rarity of a SkyBlock item. */
 var Rarity;
 (function (Rarity) {
@@ -294,6 +400,13 @@ var Rarity;
         }
     }
     Rarity.parseRarity = parseRarity;
+    function toNumber(rarity) {
+        if (rarity < 7)
+            return rarity;
+        else
+            return 7;
+    }
+    Rarity.toNumber = toNumber;
 })(Rarity || (Rarity = {}));
 class SkyBlockItem {
     constructor() {
@@ -322,11 +435,11 @@ class SkyBlockItem {
     }
     copy() {
         let s = new SkyBlockItem();
-        s.name = this.name;
-        s.rarity = this.rarity;
-        s.category = this.category;
-        s.dungeonItem = this.dungeonItem;
-        s.stats = this.stats;
+        s.name = structuredClone(this.name);
+        s.rarity = structuredClone(this.rarity);
+        s.category = structuredClone(this.category);
+        s.dungeonItem = structuredClone(this.dungeonItem);
+        s.stats = SkyBlockStatsFunctions.clone(this.stats);
         return s;
     }
 }
@@ -364,7 +477,7 @@ class SkyBlockStats {
         this.farmingFortune = 0;
         this.fishingWisdom = 0;
         this.fishingSpeed = 0;
-        this.seaCreatureChance = 20;
+        this.seaCreatureChance = 0;
         this.miningSpeed = 0;
         this.miningFortune = 0;
     }
@@ -464,10 +577,25 @@ rift_health
     function add(lhs, rhs) {
         let statsObject = new SkyBlockStats();
         Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
-            statsObject[key] += (rhs[key]) + (lhs[key]);
-            console.log(`${statsObject[key]} += ${(rhs[key]) + (lhs[key])}`);
+            statsObject[key] = (rhs[key]) + (lhs[key]);
         });
         return statsObject;
     }
     SkyBlockStatsFunctions.add = add;
+    function clone(stats) {
+        let statsObject = new SkyBlockStats();
+        Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
+            statsObject[key] = stats[key];
+        });
+        return statsObject;
+    }
+    SkyBlockStatsFunctions.clone = clone;
+    function multiply(stats, amount) {
+        let statsObject = new SkyBlockStats();
+        Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
+            statsObject[key] = stats[key] * amount;
+        });
+        return statsObject;
+    }
+    SkyBlockStatsFunctions.multiply = multiply;
 })(SkyBlockStatsFunctions || (SkyBlockStatsFunctions = {}));

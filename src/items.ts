@@ -65,17 +65,38 @@ function setupPage() {
     console.log(`stats: ${stats}`);
 
     let slots = [
-        "helmet-input",
-        "chestplate-input",
-        "leggings-input",
-        "boots-input",
-        "necklace-input",
-        "cloak-input",
-        "belt-input",
-        "gloves-input"
+        "helmet",
+        "chestplate",
+        "leggings",
+        "boots",
+        "necklace",
+        "cloak",
+        "belt",
+        "gloves"
     ];
     slots.forEach((slot) => {
-        document.getElementById(slot)!!.addEventListener("change", calculateStats)
+        document.getElementById(`${slot}-input`)?.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-stars`)?.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-reforge`)?.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-enchants`)?.addEventListener("change", () => {
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-hpbs`)?.addEventListener("click", () => {
+            console.log((document.getElementById(`${slot}-hpbs`) as HTMLInputElement).checked);
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-fpbs`)?.addEventListener("click", () => {
+            setTimeout(calculateStats, 50);
+        });
+        document.getElementById(`${slot}-recombed`)?.addEventListener("click", () => {
+            setTimeout(calculateStats, 50);
+        });
     });
 
     calculateStats();

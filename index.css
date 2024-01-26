@@ -1,9 +1,8 @@
 body {
-    /* background-image: url('./img/new-background.jpg');
+    background-image: url('./img/background.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: 100% 100%; */
-    background-color: #222222;
+    background-size: 100% 100%;
 }
 
 input {

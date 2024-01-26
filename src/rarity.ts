@@ -26,4 +26,11 @@ namespace Rarity {
             default: throw Error(`Invalid rarity ${rarity} - SkyBlock must've updated! Please report this bug.`);
         }
     }
+
+    export function toNumber(rarity: Rarity): number {
+        if(rarity < 7)
+            return rarity;
+        else
+            return 7;
+    }
 }

@@ -25,11 +25,11 @@ class SkyBlockItem {
 
     copy(): SkyBlockItem {
         let s = new SkyBlockItem();
-        s.name = this.name;
-        s.rarity = this.rarity;
-        s.category = this.category;
-        s.dungeonItem = this.dungeonItem;
-        s.stats = this.stats;
+        s.name = structuredClone(this.name);
+        s.rarity = structuredClone(this.rarity);
+        s.category = structuredClone(this.category);
+        s.dungeonItem = structuredClone(this.dungeonItem);
+        s.stats = SkyBlockStatsFunctions.clone(this.stats);
         return s;
     }
 }
@@ -74,7 +74,7 @@ class SkyBlockStats {
 
     fishingWisdom = 0;
     fishingSpeed = 0;
-    seaCreatureChance = 20;
+    seaCreatureChance = 0;
 
     miningSpeed = 0;
     miningFortune = 0;
@@ -187,13 +187,30 @@ rift_health
         let statsObject = new SkyBlockStats();
 
         Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
-            statsObject[key as keyof SkyBlockStats] += (rhs[key as keyof SkyBlockStats]) + (lhs[key as keyof SkyBlockStats]);
-            console.log(`${statsObject[key as keyof SkyBlockStats]} += ${(rhs[key as keyof SkyBlockStats]) + (lhs[key as keyof SkyBlockStats])}`)
+            statsObject[key as keyof SkyBlockStats] = (rhs[key as keyof SkyBlockStats]) + (lhs[key as keyof SkyBlockStats]);
+        });
+
+        return statsObject
+    }
+
+    export function clone(stats: SkyBlockStats): SkyBlockStats {
+        let statsObject = new SkyBlockStats();
+
+        Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
+            statsObject[key as keyof SkyBlockStats] = stats[key as keyof SkyBlockStats];
+        });
+
+        return statsObject
+    }
+
+    export function multiply(stats: SkyBlockStats, amount: number): SkyBlockStats {
+        let statsObject = new SkyBlockStats();
+
+        Object.keys(SkyBlockStatsFunctions.mapping).forEach((key) => {
+            statsObject[key as keyof SkyBlockStats] = stats[key as keyof SkyBlockStats] * amount;
         });
 
         return statsObject
     }
 
 }
-
-

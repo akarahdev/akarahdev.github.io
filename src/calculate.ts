@@ -18,11 +18,12 @@ function calculateStats() {
     stats.health = 100;
     stats.critChance = 30;
     stats.critDamage = 50;
-    stats.intelligence = 100;
 
     stats.riftTime = 480;
     stats.riftHealth = 10;
     stats.riftDamage = 20;
+    
+    stats.seaCreatureChance = 20;
 
     armors.forEach(armor => {
         let element = document.getElementById(`${armor}-input`) as HTMLInputElement;
@@ -30,7 +31,34 @@ function calculateStats() {
         let value = element.value;
         let item = items[value];
         if(item != undefined && item != null) {
-            stats = SkyBlockStatsFunctions.add(stats, item.stats);
+            console.log(item);
+            let addItem = item.copy();
+            let hpbs = document.getElementById(`${armor}-hpbs`) as HTMLInputElement;
+            if(hpbs != null) {
+                if(hpbs.checked)
+                    addItem.modify(new HotPotatoBooks(10));
+            }
+            let fpbs = document.getElementById(`${armor}-fpbs`) as HTMLInputElement;
+            if(fpbs != null) {
+                if(fpbs.checked)
+                    addItem.modify(new HotPotatoBooks(5));
+            }
+            let stars = document.getElementById(`${armor}-stars`) as HTMLInputElement;
+            if(stars != null) {
+                if(Number.isNaN(parseInt(stars.value))) {
+                    addItem.modify(new Stars(0));
+                } else {
+                    addItem.modify(new Stars(parseInt(stars.value)));
+                }
+                
+            }
+
+            let reforge = document.getElementById(`${armor}-reforge`) as HTMLInputElement;
+            if(reforge != null) {
+                item.modify(new ReforgeModifier(Reforge.fromString(reforge.value)));
+            }
+            console.log(addItem)
+            stats = SkyBlockStatsFunctions.add(stats, addItem.stats);
         }
     });
 
