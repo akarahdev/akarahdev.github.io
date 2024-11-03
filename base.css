@@ -1,0 +1,14 @@
+body {
+    font-family: Verdana, sans-serif;
+}
+
+.centered {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+img {
+    width: 50%;
+    height: auto;
+}
