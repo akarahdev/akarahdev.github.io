@@ -1,0 +1,23 @@
+body {
+    font-family: Verdana, sans-serif;
+    color: #cccccc;
+    background-color: #222222;
+}
+
+h1, h2, h3 {
+    color: #dddddd;
+}
+
+a {
+    color: #ff55ff;
+}
+
+.offset {
+    margin: auto;
+    width: 50%;
+}
+
+img {
+    width: 50%;
+    height: auto;
+}
