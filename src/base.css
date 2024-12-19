@@ -12,10 +12,9 @@ a {
     color: #ff55ff;
 }
 
-.centered {
-    width: 50%;
+.offset {
     margin: auto;
-    text-align: center;
+    width: 50%;
 }
 
 img {

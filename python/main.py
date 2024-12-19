@@ -51,7 +51,6 @@ def main():
                 with open(new_file, "wb") as opened_new_file:
                     with open(file, "rb") as opened_file:
                         opened_new_file.write(opened_file.read())
-
             pass
 
 
