@@ -1,6 +1,3 @@
-
-<a href="../projects/">Go Back</a><br>
-<br>
 <h2>Comp-RS [placeholder name]</h2>
 <img src="../img/calc1.png">
 <br>

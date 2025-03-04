@@ -1,6 +1,4 @@
 
-<a href="../projects/">Go Back</a><br>
-<br>
 <h2>Flow State</h2>
 <img src="../img/fs1.png" alt="Flow state game preview image">
 <br>

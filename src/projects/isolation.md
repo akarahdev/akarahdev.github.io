@@ -1,6 +1,3 @@
-
-<a href="../projects/">Go Back</a><br>
-<br>
 <h3>Isolation & Isolation 2</h3>
 <img src="../img/iso1.png"><br>
 
@@ -15,14 +12,15 @@ I don't have evidence of it going up to 72, but I do have this:<br>
 <b>Did you know?</b>
 If you look at the player list, there are some interesting faces here:<br>
 <ul>
-<li><b>Luke583</b> - One of Isolation's beta testers before release</li>
-<li><b>wodozar</b> - Isolation 1's texture pack maker</li>
-<li><b>IcyBlizzardPengu, Hi_Tale</b> - People I am friends with that I met through this project!</li>
-<li><b>NotWizaro, VoidicStar</b> - These people ended up becoming top players later on</li>
-<li><b>Henry118EP</b> - Ended up becoming one of Isolation 1 & 2's builders</li>
+    <li><b>Luke583</b> - One of Isolation's beta testers before release</li>
+    <li><b>wodozar</b> - Isolation 1's texture pack maker</li>
+    <li><b>IcyBlizzardPengu, Hi_Tale</b> - People I am friends with that I met through this project!</li>
+    <li><b>NotWizaro, VoidicStar</b> - These people ended up becoming top players later on</li>
+    <li><b>Henry118EP</b> - Ended up becoming one of Isolation 1 & 2's builders</li>
 </ul>
 
-And as a fun tidbit, when I banned someone for abusing dupe glitches without reporting them, I got this message back:<br>
+And as a fun tidbit, when I banned someone for abusing dupe glitches without reporting them, I got this message
+back:<br>
 <img src="../img/iso2.png"><br>
 I did not accept this deal. I believe that is actually against DiamondFire's rules.<br>
 
