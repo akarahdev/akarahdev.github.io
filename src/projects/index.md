@@ -7,4 +7,4 @@
 Coming soon!
 
 ## Rust Projects
-<a href="comprs.md">Comp-RS</a>
+[Comp-RS](./comprs.md)

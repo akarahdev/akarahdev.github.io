@@ -1,8 +1,9 @@
 import os
 import shutil
 import time
-
 import markdown2
+import http.server
+import socketserver
 
 
 def main():
@@ -53,6 +54,17 @@ def main():
                         opened_new_file.write(opened_file.read())
             pass
 
+    handler = http.server.SimpleHTTPRequestHandler
+
+    os.chdir("./docs/")
+    with socketserver.TCPServer(("", 8000), handler) as server:
+        print(f"Serving at port 8000")
+        try:
+            server.serve_forever()
+        except:
+            pass
+
 
 if __name__ == "__main__":
     main()
+
