@@ -14,7 +14,11 @@ def main():
     with open("./python/template.html") as template_file:
         template_text = template_file.read()
 
-    for root, dirs, files, in os.walk("./src"):
+    for (
+        root,
+        dirs,
+        files,
+    ) in os.walk("./src"):
 
         for file in files:
 
@@ -36,13 +40,19 @@ def main():
                 new_file = new_file.replace(".md", ".html")
 
                 parsed = markdown2.markdown(file_text)
-                output = (template_text
-                            # Replace template content
-                          .replace("%{CONTENT}%", parsed)
-                            # Replace stylesheet link
-                          .replace("%{STYLESHEET_LINK}%", stylesheet_path)
-                            # Replace `.md` references to `.html` for utility
-                          .replace(".md", ".html"))
+
+                if "<!--IgnoreTemplate-->" in parsed:
+                    output = parsed
+                else:
+                    output = (
+                        template_text
+                        # Replace template content
+                        .replace("%{CONTENT}%", parsed)
+                        # Replace stylesheet link
+                        .replace("%{STYLESHEET_LINK}%", stylesheet_path)
+                        # Replace `.md` references to `.html` for utility
+                        .replace(".md", ".html")
+                    )
 
                 print(f"Translated file: {file} => {new_file}")
                 with open(new_file, "w") as opened_new_file:
@@ -67,4 +77,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

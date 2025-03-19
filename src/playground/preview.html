@@ -1,0 +1,31 @@
+<!--IgnoreTemplate-->
+
+<!DOCTYPE html>
+
+<head>
+    <title>Web Preview</title>
+
+
+</head>
+
+<body>
+    <div id="html"></div>
+    <div id="css"></div>
+    <div id="js"></div>
+
+    <script>
+        let html = localStorage["playground-html"];
+        let css = localStorage["playground-css"];
+        let js = localStorage["playground-js"];
+
+        document.getElementById("html").innerHTML = html;
+
+        let style = document.createElement('style');
+        style.innerHTML = css;
+        document.body.appendChild(style);
+
+        let script = document.createElement('script');
+        script.textContent = js;
+        document.body.appendChild(script);
+    </script>
+</body>

@@ -1,0 +1,47 @@
+<!--IgnoreTemplate-->
+
+<!DOCTYPE html>
+
+<head>
+    <title>Web Playground</title>
+
+    <style>
+        body {
+            background-color: #222222;
+        }
+
+        h1 {
+            color: #dddddd;
+        }
+
+        .input-box {
+            width: 30%;
+            height: 90%;
+            background-color: #333333;
+            color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Web Playground</h1><br>
+    <button id="preview">Preview Website</button><br>
+
+    <textarea type="text" id="html-box" class="input-box" rows="50" placeholder="HTML Here"></textarea>
+    <textarea type="text" id="css-box" class="input-box" rows="50" placeholder="CSS Here"></textarea>
+    <textarea type="text" id="js-box" class="input-box" rows="50" placeholder="JS Here"></textarea>
+
+    <script>
+
+        document.getElementById("preview").onclick = (event) => {
+            localStorage["playground-html"] = document.getElementById("html-box").value;
+            let css = document.getElementById("css-box").value;
+            localStorage["playground-css"] = css;
+            let js = document.getElementById("js-box").value;
+            localStorage["playground-js"] = js;
+            window.open("./preview.html");
+
+
+        };
+    </script>
+</body>
