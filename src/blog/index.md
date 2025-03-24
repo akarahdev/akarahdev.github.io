@@ -1,5 +1,5 @@
 Blogs:
 
-1. Datafix [./datafix-3-23-25.md](./datafix-3-23-25.md)
+1. [Datafix Initial Writeup](./1-datafix-writeup.md)
 
 This page will be cleaned up later.

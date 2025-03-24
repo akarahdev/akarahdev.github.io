@@ -1,12 +1,14 @@
 Posted on: March 23rd, 2025
 
+Last edited: March 24th, 2025, 2:41PM EST
+
 # What is Datafix?
 Datafix is a serialization & deserialization framework for Rust, using `Codec` and `CodecOps`. It also has facilities for allowing you to fix schemas of old data with `TypeRewriteRule`s. Datafix has its roots in Mojang's `DataFixerUpper` library, reimplemented in Rust and updated to be more ergonomic to Rust. The library has also been slightly simplified from `DataFixerUpper`, especially in the `TypeRewriteRule`s.
 
-The reason I originally created it was because I realized the original `DataFixerUpper` did not translate well into Java. While it is a very good library to work with in my opinion, it fell flat due to Java's limitations & type erasure. This also meant there was lots of overhead & pointer chasing. I felt that these issues could be solved very easily in Rust, and I believe I was correct.
+The reason I originally created it was because I realized the original `DataFixerUpper` was implemented in Java. While it is a very good library to work with in my opinion, it fell flat due to Java's limitations & type erasure. This also meant there was lots of overhead, with things such as Codecs requiring lots of pointer chasing. I felt that these issues could be solved very easily in Rust, and I believe I was correct.
 
 # Definitions
-Datafix has a few core types:
+Datafix has a few core types for serialization:
 - `Codec`s are structures that allow you to transform types into eachother. For example, you could turn a user's data into JSON, and vice versa.
 - `CodecOps` are helper types that `Codec`s use. It is a trait that defines an interface to facilitate converting between the different types.
 
@@ -81,6 +83,8 @@ let encoded = <sample encoded value in Json>;
 let decoded = <type>::codec().decode(&JsonOps, &encoded);
 assert_eq!(<expected value>, decoded);
 ```
+
+Make sure to replace the variables above appropiately.
 
 # Built-in Codec Types
 However, this is too simplistic for what you may want to do. All of the above are boring transformations that you could probably write yourself in a few minutes. Codecs can be fed into adapters to do more interesting things.
