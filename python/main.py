@@ -7,6 +7,7 @@ import socketserver
 
 
 def main():
+    extras = ["fenced-code-blocks", "highlightjs-lang"]
     print("Clearing ./docs")
 
     shutil.rmtree("./docs", ignore_errors=True)
@@ -39,7 +40,7 @@ def main():
 
                 new_file = new_file.replace(".md", ".html")
 
-                parsed = markdown2.markdown(file_text)
+                parsed = markdown2.markdown(file_text, extras=extras)
 
                 if "<!--IgnoreTemplate-->" in parsed:
                     output = parsed
@@ -67,8 +68,8 @@ def main():
     handler = http.server.SimpleHTTPRequestHandler
 
     os.chdir("./docs/")
-    with socketserver.TCPServer(("", 8000), handler) as server:
-        print(f"Serving at port 8000")
+    with socketserver.TCPServer(("", 8003), handler) as server:
+        print(f"Serving at port 8001")
         try:
             server.serve_forever()
         except:
