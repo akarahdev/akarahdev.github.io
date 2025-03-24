@@ -68,7 +68,7 @@ def main():
     handler = http.server.SimpleHTTPRequestHandler
 
     os.chdir("./docs/")
-    with socketserver.TCPServer(("", 8003), handler) as server:
+    with socketserver.TCPServer(("", 8005), handler) as server:
         print(f"Serving at port 8001")
         try:
             server.serve_forever()
