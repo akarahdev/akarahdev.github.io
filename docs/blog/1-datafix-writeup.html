@@ -23,15 +23,17 @@
     <div class="offset">
         <p>Posted on: March 23rd, 2025</p>
 
+<p>Last edited: March 24th, 2025, 2:41PM EST</p>
+
 <h1>What is Datafix?</h1>
 
 <p>Datafix is a serialization &amp; deserialization framework for Rust, using <code>Codec</code> and <code>CodecOps</code>. It also has facilities for allowing you to fix schemas of old data with <code>TypeRewriteRule</code>s. Datafix has its roots in Mojang's <code>DataFixerUpper</code> library, reimplemented in Rust and updated to be more ergonomic to Rust. The library has also been slightly simplified from <code>DataFixerUpper</code>, especially in the <code>TypeRewriteRule</code>s.</p>
 
-<p>The reason I originally created it was because I realized the original <code>DataFixerUpper</code> did not translate well into Java. While it is a very good library to work with in my opinion, it fell flat due to Java's limitations &amp; type erasure. This also meant there was lots of overhead &amp; pointer chasing. I felt that these issues could be solved very easily in Rust, and I believe I was correct.</p>
+<p>The reason I originally created it was because I realized the original <code>DataFixerUpper</code> was implemented in Java. While it is a very good library to work with in my opinion, it fell flat due to Java's limitations &amp; type erasure. This also meant there was lots of overhead, with things such as Codecs requiring lots of pointer chasing. I felt that these issues could be solved very easily in Rust, and I believe I was correct.</p>
 
 <h1>Definitions</h1>
 
-<p>Datafix has a few core types:
+<p>Datafix has a few core types for serialization:
 - <code>Codec</code>s are structures that allow you to transform types into eachother. For example, you could turn a user's data into JSON, and vice versa.
 - <code>CodecOps</code> are helper types that <code>Codec</code>s use. It is a trait that defines an interface to facilitate converting between the different types.</p>
 
@@ -103,6 +105,8 @@ let encoded = &lt;sample encoded value in Json&gt;;
 let decoded = &lt;type&gt;::codec().decode(&amp;JsonOps, &amp;encoded);
 assert_eq!(&lt;expected value&gt;, decoded);
 </code></pre>
+
+<p>Make sure to replace the variables above appropiately.</p>
 
 <h1>Built-in Codec Types</h1>
 
