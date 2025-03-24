@@ -35,6 +35,7 @@ def main():
             if file.endswith(".md"):
                 slash_occurrences = file.count("/")
                 stylesheet_path = ("../" * (slash_occurrences - 2)) + "./base.css"
+                code_path = ("../" * (slash_occurrences - 2)) + "./code.css"
                 with open(file, "r") as f:
                     file_text = f.read()
 
@@ -51,6 +52,7 @@ def main():
                         .replace("%{CONTENT}%", parsed)
                         # Replace stylesheet link
                         .replace("%{STYLESHEET_LINK}%", stylesheet_path)
+                        .replace("%{CODE_STYLESHEET_LINK}%", code_path)
                         # Replace `.md` references to `.html` for utility
                         .replace(".md", ".html")
                     )
@@ -68,8 +70,8 @@ def main():
     handler = http.server.SimpleHTTPRequestHandler
 
     os.chdir("./docs/")
-    with socketserver.TCPServer(("", 8005), handler) as server:
-        print(f"Serving at port 8001")
+    with socketserver.TCPServer(("", 8002), handler) as server:
+        print(f"Serving at port 8002")
         try:
             server.serve_forever()
         except:

@@ -1,0 +1,68 @@
+pre,
+code,
+.hljs {
+
+    background-color: #111111;
+    background-size: 100%;
+    overflow: auto;
+
+    color: #fff;
+}
+
+.hljs {
+    display: block;
+}
+
+pre {
+    padding: 1%;
+    border: #772277 solid 2px;
+
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #555555;
+}
+
+.hljs-deletion,
+.hljs-name,
+.hljs-regexp,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-tag,
+.hljs-template-variable,
+.hljs-variable {
+    color: #babaff
+}
+
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-link,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-params,
+.hljs-type {
+    color: #ff99ff
+}
+
+.hljs-attribute {
+    color: #dddd22
+}
+
+.hljs-addition,
+.hljs-bullet,
+.hljs-string,
+.hljs-symbol {
+    color: #00ffff
+}
+
+.hljs-section,
+.hljs-title {
+    color: #dddd22
+}
+
+.hljs-keyword,
+.hljs-selector-tag {
+    color: #8888ff
+}
