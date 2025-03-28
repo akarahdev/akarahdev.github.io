@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <link href=".././base.css" rel="stylesheet">
+    <link href=".././code.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header-bg">
+        <div class="header-text">
+            <h1>akarah.dev</h1>
+            <ul class="hzlist">
+                <li><a href="../">Go Back</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/projects/">Projects</a></li>
+                <li><a href="/blog/">Blogs</a></li>
+                <li><a href="/docs/">Documentation</a></li>
+            </ul>
+            <br>
+        </div>
+    </div>
+    <div class="offset">
+        <h1>WyvernMC Documentation</h1>
+
+<p>WyvernMC is a Rust framework for creating Minecraft servers. Unlike most Minecraft server implementations, WyvernMC does not provide any vanilla behavior. It is up to the developer to implement behavior. WyvernMC adds reasonable defaults for login &amp; configuration, but after that you are on your own.</p>
+
+<h1>Server Building</h1>
+
+<p>To get started making a server, use the <code>Server::builder()</code> method to obtain a <code>ServerBuilder</code>.</p>
+
+<h2>Configuring the Server</h2>
+
+<p>You can use <code>ServerBuilder::event</code> to add an asynchronous function that will be spawned whenever an event is called.</p>
+
+<p>Use <code>ServerBuilder::registries</code> to modify the built-in registries, such as adding a new Dimension Type, Painting Variant, etc. Any game data can be modified through this. You must pass in a function that accepts an <code>&amp;mut RegistryContainer</code>, enabling you to modify registries. See the <code>Registries</code> section for more information.</p>
+
+<p><code>ServerBuilder::plugin</code> can register a plugin to the server - a struct that implements the <code>Plugin</code> trait that modifies the passed-in ServerBuilder and returns a new one.</p>
+
+<h2>Running the Server</h2>
+
+<p>Once configuration is done, call the <code>ServerBuilder::run</code> method to begin running the server. This will block the current thread and run the server using the configuration that has been provided.</p>
+
+<p>For example:</p>
+
+<pre><code class="rs language-rs">fn main() {
+    Server::builder()
+        .run();
+}
+</code></pre>
+
+<h1>Events</h1>
+
+<p>WyvernMC uses an event system to inform you when something happens.</p>
+
+<p>Each event implements the <code>Event</code> trait, and each Event structure contains public fields with metadata about the event. For example, the <code>PlayerJoinEvent</code> gives you a <code>Player</code> and a <code>Token&lt;Id&gt;</code> to determine what dimension the <code>Player</code> provided will spawn in.</p>
+
+<h2>Event Handlers</h2>
+
+<p>An event handler takes this form:</p>
+
+<pre><code class="rs language-rs">async fn f(event: Arc&lt;E&gt;) -&gt; ActorResult&lt;()&gt; { 
+    ... 
+}
+</code></pre>
+
+<p><code>f</code> can be any function name, and <code>E</code> can be any structure that implements the <code>Event</code> trait. You can pass these into a <code>ServerBuilder::event</code> to register that event handler to the server. The server will now spawn your event handler whenever the event is invoked.</p>
+
+<h1>Concurrency &amp; Paralellism</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Registries</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Components</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Other Values</h1>
+
+<p><code>todo!()</code></p>
+
+<h2>ID</h2>
+
+<p><code>todo!()</code></p>
+
+<h2>NVec</h2>
+
+<p><code>todo!()</code></p>
+
+<h2>Tokens</h2>
+
+<p><code>todo!()</code></p>
+
+<h1>Dimensions</h1>
+
+<p><code>todo!()</code></p>
+
+<h2>Blocks</h2>
+
+<p><code>todo!()</code></p>
+
+<h1>Players</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Entities</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Inventory &amp; Items</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Resource Packs</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Packets</h1>
+
+<p><code>todo!()</code></p>
+
+<h1>Macros</h1>
+
+<p><code>todo!()</code></p>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/rust.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
