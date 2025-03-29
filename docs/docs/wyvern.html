@@ -69,23 +69,74 @@
 
 <h1>Concurrency &amp; Paralellism</h1>
 
-<p><code>todo!()</code></p>
+<p>WyvernMC has parallelism.</p>
 
-<h1>Registries</h1>
+<p>WyvernMC is paralellized by distinguishing systems into "actor". Each actor runs on it's own thread. An actor is distinguished as: an individual player, a dimension, or a server. Using this mechanism, you can paralellize your server easily and automatically.  </p>
 
-<p><code>todo!()</code></p>
+<p>Note that an individual dimension takes up a lot of the server's total load, so you should be careful when having high amount of dimensions running on the same server or machine. It's recommended to keep this to a low amount to not lag out your server.</p>
 
-<h1>Components</h1>
+<p>Tasks are distributed across multiple threads, and use an async runtime to handle the tasks for you. Note that the backend does not use async, but the frontend does. This is so you can do things such as database calls in events, without freezing the rest of the server.</p>
 
-<p><code>todo!()</code></p>
+<p>Note that this does create a tradeoff. While WyvernMC has generally less memory usage than a Vanilla Minecraft server, WyvernMC servers tend to perform <em>much</em> more computations, even without vanilla features. This is because WyvernMC servers paralellize using the actor system. This means instead of sharing data, threads communicate by sending messages through channels. While the overhead has tried to be minimized, the overhead is not perfect.</p>
+
+<p>This does also mean that deadlocks can happen. While the goal is for WyvernMC to never deadlock (except if it is the fault of user code), it still can from time to time. If you encounter a deadlock using WyvernMC, capture the stack trace of every thread and file a bug report.</p>
+
+<h1>Registries &amp; Components</h1>
+
+<p>WyvernMC uses a slight variation on Vanilla mechanisms for storing data.</p>
+
+<p><code>Registry&lt;T&gt;</code> is a map between <code>Id</code> and <code>T</code>. For example, you can do <code>Registry::get</code> to get an <code>T</code> from an <code>Id</code> in the <code>Registry&lt;T&gt;</code>. This is primarily used during <code>ServerBuilder</code> construction to define data types such as block states, entity types, entity variants, etc. The future resource pack API will make use of this type more.</p>
+
+<p>Components are split around multiple types. <code>DataComponentMap</code> is a map that takes a <code>DataComponentType&lt;T&gt;</code> and returns a <code>T</code>. The difference between this and <code>Registry&lt;T&gt;</code> is that while <code>DataComponentType&lt;T&gt;</code> is a thin typed wrapper around <code>Id</code>, a <code>DataComponentMap</code> can hold data of different types (this is done by downcasting <code>Any</code>, which is surprisingly fast, a <code>DataComponentMap::get</code> operation only seems to take a few nanoseconds). You can also get a quick diff between two maps using <code>DataComponentPatch::from_maps</code>.</p>
+
+<p>What this combination allows is a very structured yet extensible way of manipulating data. For example, on <code>Entity</code>, you can create your own <code>DataComponentType</code> that is meant for <code>Entity</code> to give it custom data. For an example, you can make a <code>DataComponentType&lt;f64&gt;</code> for health with:</p>
+
+<pre><code class="rs language-rs">pub trait EntityComponentsExt {
+    const HEALTH: DataComponentType&lt;f64&gt;;
+}
+
+impl EntityComponentsExt for EntityComponents {
+    const HEALTH: DataComponentType&lt;f64&gt; = DataComponentType::new(id![minecraft:health]);
+}
+</code></pre>
+
+<p>This is just one example, components can be made as simple or complex as you would like.</p>
+
+<p>This does have some differences. While APIs are usually available to abstract over components, they may not always be available.</p>
+
+<p>This differs from ECS (that Valence uses) because ECS is fundamentally reliant on systems and entities. WyvernMC has no notion of a "system" in ECS's terms, it is only aware of tasks. Tasks can loop, be spawned when an event is called, or more. This is lower level compared to ECS's systems but ultimately can allow for more control and knowledge over what exactly your code is doing.</p>
+
+<h2>An Example</h2>
+
+<p>Let's say you were making an RPG server and you wanted to track a set of custom items. You could accomplish this by having a <code>Registry&lt;ItemStack&gt;</code>.</p>
+
+<pre><code class="rs language-rs">pub static ITEMS: LazyLock&lt;Registry&lt;ItemStack&gt;&gt; = LazyLock::new(Registry::new);
+</code></pre>
+
+<p>Then, on some initialization function, you could register items into this registry.</p>
+
+<pre><code class="rs language-rs">async fn on_startup(event: Arc&lt;ServerStartEvent&gt;) -&gt; ActorResult&lt;()&gt; {
+    ITEMS.insert(id![item:a], ItemStack::new(id![minecraft:diamond]));
+    ITEMS.insert(id![item:b], ItemStack::new(id![minecraft:cobblestone]));
+    Ok(())
+}
+</code></pre>
+
+<p><code>ItemStack</code> implements the <code>ComponentHolder</code> trait, allowing you to treat an object as if it was a <code>DataComponentMap</code>.</p>
+
+<p>When you want to retrieve an item, you can use <code>Registry::get</code> and <code>Registry::get_entry</code> to get a direct reference to an entry. To clear a registry, you should use <code>Registry::clear</code>. Removing entries from a registry directly is not currently supported.</p>
 
 <h1>Other Values</h1>
 
-<p><code>todo!()</code></p>
+<p>WyvernMC has a variety of other utility values to help you code your servers.</p>
 
 <h2>ID</h2>
 
-<p><code>todo!()</code></p>
+<p>An <code>Id</code> is a Rust representation of Minecraft's identifier type.</p>
+
+<p>An identifier takes the name of a path and a namespace, with a <code>:</code> between them. For example, <code>minecraft:coal</code> refers to the <code>coal</code> item in the <code>minecraft</code> namespace. Paths can also use <code>/</code> to distinguish items. For an example of that, <code>minecraft:wolf/variant</code> refers to the item <code>variant</code> in the <code>wolf</code> path in the <code>minecraft</code> namespace.</p>
+
+<p><code>Id</code> can be created using a few methods. <code>Id::new</code> allows you to create an <code>Id</code> with runtime-specified values. <code>Id::constant</code> creates an <code>Id</code> with statically-known strings. This is possible because <code>Id</code> internally uses the <code>Cow</code> type, to prevent unnecessary allocations. The ideal way to create an <code>Id</code> is to use the <code>id!</code> macro. For example, to do <code>Id::constant("minecraft", "wolf/variant")</code>, you can also just do <code>id![minecraft:wolf/variant]</code>, which is much shorter and concise.</p>
 
 <h2>NVec</h2>
 
